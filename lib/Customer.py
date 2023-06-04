@@ -22,7 +22,7 @@ class Customer(Base):
 
     def given_name(self):
         return self.given_name
-    
+
     def family_name(self):
         return self.family_name
     
