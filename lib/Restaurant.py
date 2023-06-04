@@ -15,7 +15,7 @@ class Restaurant(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
-    reviews = relationship('Review', back_populates='restaurant')
+    reviews = relationship('Review', back_populates='restaurants')
     customers = relationship('Customer', secondary='reviews', back_populates='restaurants')
 
     def __init__(self, name):
