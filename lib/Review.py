@@ -17,8 +17,8 @@ class Review(Base):
     restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
     rating = Column(Float)
 
-    customer = relationship('Customer', backref='reviews')
-    restaurant = relationship('Restaurant', backref='reviews')
+    customer = relationship('Customer')
+    restaurant = relationship('Restaurant')
 
     def __init__(self, customer, restaurant, rating):
         self.customer = customer
@@ -27,6 +27,12 @@ class Review(Base):
 
     def rating(self):
         return self.rating
+    
+    def customer(self):
+        return self.customer
+    
+    def restaurant(self):
+        return self.restaurant
     
     @classmethod
     def all(cls):
