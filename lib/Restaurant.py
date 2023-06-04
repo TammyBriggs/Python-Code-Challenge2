@@ -1,6 +1,7 @@
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from Review import Review
 
 # Create the SQLAlchemy engine and session
 engine = create_engine('sqlite:///restaurants.db')
@@ -33,3 +34,11 @@ class Restaurant(Base):
         for review in self.reviews:
             unique_customers.add(review.customer)
         return list(unique_customers)
+    
+    def average_star_rating(self):
+        rating_sum = session.query(func.sum(Review.rating)).filter(Review.restaurant_id == self.id).scalar()
+        rating_count = session.query(func.count(Review.rating)).filter(Review.restaurant_id == self.id).scalar()
+        if rating_count:
+            return rating_sum / rating_count
+        else:
+            return None
